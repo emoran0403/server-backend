@@ -105,13 +105,13 @@ import { all_item_list, tables, trait_values } from "./models";
 
 /**
  * Used to generate any trait table for a player
- * @param uuid player uuid
+ * @param player_uuid player uuid
  * @param table the name of the table to generate "jewelry" | "weapon" | "armor"
  */
-const genAnyTraitTable = (uuid: string, table: tables) =>
+const genAnyTraitTable = (player_uuid: string, table: tables) =>
   Query(
     `
-    CREATE TABLE _${uuid}_${table.toLowerCase()}_traits (
+    CREATE TABLE _${player_uuid}_${table.toLowerCase()}_traits (
         ${table}_name TEXT,
         ${TRAITS[`${table.toUpperCase()}_TRAITS`].map((item) => `${item} BOOLEAN`).toString()},
         all_owned BOOLEAN
@@ -121,27 +121,27 @@ const genAnyTraitTable = (uuid: string, table: tables) =>
 
 /**
  * Used to fill any trait table for a player with false values
- * @param uuid player uuid
+ * @param player_uuid player uuid
  * @param table the name of the table to generate "jewelry" | "weapon" | "armor"
  */
-const fillAnyTraitTable = (uuid: string, table: tables) =>
+const fillAnyTraitTable = (player_uuid: string, table: tables) =>
   Query(
     `
-    INSERT INTO _${uuid}_${table}_traits (${table}_name, ${TRAITS[`${table.toLocaleUpperCase()}_TRAITS`].toString()}, all_owned)
+    INSERT INTO _${player_uuid}_${table}_traits (${table}_name, ${TRAITS[`${table.toLocaleUpperCase()}_TRAITS`].toString()}, all_owned)
     VALUES (${CRAFTABLES[`${table.toLocaleUpperCase()}`].map((item) => `(${item}, ${FALSE10}.toString())`).toString()};
     `
   );
 
 /**
  * Used to update a specified trait table
- * @param uuid player uuid
+ * @param player_uuid player uuid
  * @param table the name of the table to generate "jewelry" | "weapon" | "armor"
  * @param traitValues tuple array containing arrays of ['trait', 'true || false']
  */
-const updateAnyTraitTable = (uuid: string, table: tables, traitValues: trait_values[]) =>
+const updateAnyTraitTable = (player_uuid: string, table: tables, traitValues: trait_values[]) =>
   Query(
     `
-          UPDATE _${uuid}_${table}_traits
+          UPDATE _${player_uuid}_${table}_traits
           SET ${traitValues.map(([trait, value]) => `${trait} = ${value}`).toString()}
           WHERE ${table}_traits = ${table}_name;
     `
@@ -149,26 +149,26 @@ const updateAnyTraitTable = (uuid: string, table: tables, traitValues: trait_val
 
 /**
  * Used to select a single item from a specified trait table
- * @param uuid player uuid
+ * @param player_uuid player uuid
  * @param table the name of the table to select from "jewelry" | "weapon" | "armor"
  * @param item any craftable item: all_item_list
  */
-const selectSingleFromTraitTable = (uuid: string, table: tables, item: all_item_list) =>
+const selectSingleFromTraitTable = (player_uuid: string, table: tables, item: all_item_list) =>
   Query(
     `
-    SELECT * FROM _${uuid}_${table}_traits WHERE ${table}_name = '${item}';
+    SELECT * FROM _${player_uuid}_${table}_traits WHERE ${table}_name = '${item}';
     `
   );
 
 /**
  * Used to select all items from a specified trait table
- * @param uuid player uuid
+ * @param player_uuid player uuid
  * @param table the name of the table to select from "jewelry" | "weapon" | "armor"
  */
-const selectAllFromTraitTable = (uuid: string, table: tables) =>
+const selectAllFromTraitTable = (player_uuid: string, table: tables) =>
   Query(
     `
-    SELECT * FROM _${uuid}_${table}_traits;
+    SELECT * FROM _${player_uuid}_${table}_traits;
     `
   );
 

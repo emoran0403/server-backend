@@ -10,5 +10,5 @@ export default function (app: Router) {
 
   // route.get("/all", controllers.traits.getAlltraits);
 
-  // route.put("/update", controllers.traits.updateWrit);
+  // route.put("/update", controllers.traits.updateTrait);
 }
