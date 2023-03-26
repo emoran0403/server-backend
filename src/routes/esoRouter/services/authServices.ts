@@ -1,13 +1,16 @@
 import { queries } from "../../../db/schemas/esoapp";
 import { generateHash } from "../../middlewares/passwords";
+import { reqDTO } from "../index";
 
-const doesPlayerExist = async (username: string) => {
+const doesPlayerExist = async (reqDTO: reqDTO) => {
+  const { username } = reqDTO;
   const results = await queries.auth.findPlayer(username);
   if (results.length) return true;
   return false;
 };
 
-const insertPlayer = async (username: string, plainTextPassword: string) => {
+const insertPlayer = async (reqDTO: reqDTO) => {
+  const { username, plainTextPassword } = reqDTO;
   const hashedPassword = generateHash(plainTextPassword);
   const results = await queries.auth.newPlayer(username, hashedPassword);
   return results;
@@ -18,7 +21,8 @@ const getAllPlayers = async () => {
   return results;
 };
 
-const getOnePlayer = async (username: string) => {
+const getOnePlayer = async (reqDTO: reqDTO) => {
+  const { username } = reqDTO;
   const results = await queries.auth.findPlayer(username);
   return results;
 };

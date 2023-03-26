@@ -1,30 +1,27 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
+import { reqDTO } from "../index";
 
 const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const playerDTO = { ...req.body };
-    const { username, plainTextPassword } = playerDTO;
+    const reqDTO: reqDTO = { ...req.body };
+    const playerExists = await services.auth.doesPlayerExist(reqDTO);
 
-    const playerExists = await services.auth.doesPlayerExist(username);
+    if (playerExists) return res.status(400).json({ message: "player username already exists" });
 
-    if (playerExists) {
-      res.status(400).json({ message: "player username already exists" });
-    } else {
-      const results = await services.auth.insertPlayer(username, plainTextPassword);
+    const results = await services.auth.insertPlayer(reqDTO);
 
-      /**
-       * generate table functions go here
-       */
+    /**
+     * generate table functions go here
+     */
 
-      // !?! testing writs here
-      // const wow = await queries.writs.genWritTable("2");
-      // console.log(wow);
-      // const writResults = await queries.writs.genWritTable(results[0].player_uuid);
-      // !?! testing writs here
+    // !?! testing writs here
+    // const wow = await queries.writs.genWritTable("2");
+    // console.log(wow);
+    // const writResults = await queries.writs.genWritTable(results[0].player_uuid);
+    // !?! testing writs here
 
-      res.status(200).json(results.rows);
-    }
+    res.status(200).json(results.rows);
   } catch (error) {
     next(error);
   }
@@ -41,17 +38,13 @@ const getAllPlayers = async (req: Request, res: Response, next: NextFunction) =>
 
 const getOnePlayer = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const playerDTO = { ...req.body };
-    const { username } = playerDTO;
+    const reqDTO: reqDTO = { ...req.body };
+    const playerExists = await services.auth.doesPlayerExist(reqDTO);
 
-    const playerExists = await services.auth.doesPlayerExist(username);
+    if (!playerExists) return res.status(404).json({ message: "that player does not exist" });
 
-    if (!playerExists) {
-      res.status(404).json({ message: "that player does not exist" });
-    } else {
-      const results = await services.auth.getOnePlayer(username);
-      res.status(200).json(results);
-    }
+    const results = await services.auth.getOnePlayer(reqDTO);
+    res.status(200).json(results);
   } catch (error) {
     next(error);
   }

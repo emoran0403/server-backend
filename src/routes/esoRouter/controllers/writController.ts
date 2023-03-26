@@ -1,17 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
 import { isNil } from "lodash";
+import { reqDTO } from "../index";
 
 const getOneWrit = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO = { ...req.body };
-    const { player_uuid, writ_uuid } = reqDTO;
+    const reqDTO: reqDTO = { ...req.body };
+    // const { player_uuid, writ_uuid } = reqDTO;
 
-    const writExists = await services.writs.doesWritExist(player_uuid, writ_uuid);
+    const writExists = await services.writs.doesWritExist(reqDTO);
     //   const results = await queries.writs.selectWrit("1", "2");
-    if (!writExists) res.status(404).json({ message: "that writ does not exist" });
+    if (!writExists) return res.status(404).json({ message: "That Writ does not exist" });
 
-    const results = await services.writs.getSingleWrit(player_uuid, writ_uuid);
+    const results = await services.writs.getSingleWrit(reqDTO);
 
     res.status(200).json(results);
   } catch (error) {
@@ -21,9 +22,9 @@ const getOneWrit = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO = { ...req.body };
-    const { player_uuid } = reqDTO;
-    const results = await services.writs.getAllWrits(player_uuid);
+    const reqDTO: reqDTO = { ...req.body };
+    // const { player_uuid } = reqDTO;
+    const results = await services.writs.getAllWrits(reqDTO);
     //   const results = await queries.writs.selectAllWrits("1");
     // console.log(results);
 
@@ -35,18 +36,18 @@ const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
 
 const updateWrit = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO = { ...req.body };
-    const { player_uuid, writ_uuid, completion } = reqDTO;
+    const reqDTO: reqDTO = { ...req.body };
+    // const { player_uuid, writ_uuid, completion } = reqDTO;
 
-    const writExists = await services.writs.doesWritExist(player_uuid, writ_uuid);
+    const writExists = await services.writs.doesWritExist(reqDTO);
     //   const results = await queries.writs.selectWrit("1", "2");
-    if (!writExists) res.status(404).json({ message: "that writ does not exist" });
+    if (!writExists) return res.status(404).json({ message: "That Writ does not exist" });
 
-    const results = await services.writs.updateWrit(player_uuid, writ_uuid, completion);
+    const results = await services.writs.updateWrit(reqDTO);
 
-    if (results) res.json({ message: `writ ${writ_uuid} for player ${player_uuid} updated to show ${completion}` });
+    if (results) return res.json({ message: `Updated Writ` });
 
-    res.status(400).json({ message: `could not update writ ${writ_uuid} for player ${player_uuid}` });
+    res.status(400).json({ message: `Could not update Writ` });
   } catch (error) {
     next(error);
   }
@@ -54,11 +55,10 @@ const updateWrit = async (req: Request, res: Response, next: NextFunction) => {
 
 const newWrit = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO = { ...req.body };
-    const { uuid, writ, is_jewelry } = reqDTO;
+    const reqDTO: reqDTO = { ...req.body };
 
-    const results = await services.writs.newWrit(uuid, writ, is_jewelry);
-    if (isNil(results)) res.status(500).json({ message: "Error saving new Writ" });
+    const results = await services.writs.newWrit(reqDTO);
+    if (isNil(results)) return res.status(500).json({ message: "Error saving new Writ" });
 
     res.json(results);
   } catch (error) {

@@ -1,14 +1,15 @@
 import { Query } from "../../query";
 import { STYLES } from "./constants";
+import { item_values } from "./models";
 
 /**
  * Used to generate the styles table for a player
  * @param uuid - the uuid of the player.
  * @returns
  */
-const genStylesTable = (uuid: string) =>
+const genStylesTable = (player_uuid: string) =>
   Query(
-    `CREATE TABLE _${uuid}_styles (
+    `CREATE TABLE _${player_uuid}_styles (
       style_name TEXT PRIMARY KEY,
       axes Boolean,
       belts Boolean,
@@ -33,10 +34,10 @@ const genStylesTable = (uuid: string) =>
  * @param uuid - the uuid of the player.
  * @returns
  */
-const fillStylesTable = (uuid: string) =>
+const fillStylesTable = (player_uuid: string) =>
   Query(
     `
-    INSERT INTO _${uuid}_styles 
+    INSERT INTO _${player_uuid}_styles 
     (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
     VALUES (${STYLES.map(
       (style) => `(${style}, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)`
@@ -48,13 +49,13 @@ const fillStylesTable = (uuid: string) =>
  * Used to update a single style with the unlocked items
  * @param uuid - the uuid of the player.
  * @param style - the style to update.
- * @param itemValues - tuple array containing arrays of ['item', 'true || false']
+ * @param itemValues - tuple array containing arrays of ['item', 'true' || 'false']
  * @returns
  */
-const updateStylesTable = (uuid: string, style: string, itemValues: string[]) =>
+const updateStylesTable = (player_uuid: string, style: string, itemValues: item_values[]) =>
   Query(
     `
-    UPDATE _${uuid}_styles
+    UPDATE _${player_uuid}_styles
     SET ${itemValues.map(([item, value]) => `${item} = ${value}`).toString()}
     WHERE style_name = ${style}
     `
@@ -66,9 +67,9 @@ const updateStylesTable = (uuid: string, style: string, itemValues: string[]) =>
  * @param style - the style to select.
  * @returns
  */
-const selectSingleStyle = (uuid: string, style: string) =>
+const selectSingleStyle = (player_uuid: string, style: string) =>
   Query(`
-  SELECT * FROM _${uuid}_styles WHERE style_name = ${style}
+  SELECT * FROM _${player_uuid}_styles WHERE style_name = ${style}
   `);
 
 /**
@@ -76,9 +77,9 @@ const selectSingleStyle = (uuid: string, style: string) =>
  * @param uuid - the uuid of the player.
  * @returns
  */
-const selectAllStyles = (uuid: string) =>
+const selectAllStyles = (player_uuid: string) =>
   Query(`
-SELECT * FROM _${uuid}_styles;
+SELECT * FROM _${player_uuid}_styles;
 `);
 
 /**
