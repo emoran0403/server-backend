@@ -40,7 +40,7 @@ const fillStylesTable = (player_uuid: string) =>
     INSERT INTO _${player_uuid}_styles 
     (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
     VALUES (${STYLES.map(
-      (style) => `(${style}, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)`
+      (style) => `('${style}', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)`
     ).toString()});
       `
   );
@@ -57,7 +57,7 @@ const updateStylesTable = (player_uuid: string, style: string, itemValues: item_
     `
     UPDATE _${player_uuid}_styles
     SET ${itemValues.map(([item, value]) => `${item} = ${value}`).toString()}
-    WHERE style_name = ${style}
+    WHERE style_name = '${style}'
     `
   );
 
@@ -69,7 +69,7 @@ const updateStylesTable = (player_uuid: string, style: string, itemValues: item_
  */
 const selectSingleStyle = (player_uuid: string, style: string) =>
   Query(`
-  SELECT * FROM _${player_uuid}_styles WHERE style_name = ${style}
+  SELECT * FROM _${player_uuid}_styles WHERE style_name = '${style}'
   `);
 
 /**
@@ -95,7 +95,7 @@ const addNewStyle = (uuidArray: string[], style: string) =>
       .map((uuid) => {
         `INSERT INTO _${uuid}_styles 
         (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
-        VALUES (${style}, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)`;
+        VALUES ('${style}', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)`;
       })
       .toString()}
       `
@@ -117,3 +117,14 @@ export default {
  * return unlocked items within a style
  * add a new style for future proofing
  */
+
+// const updateStylesTable = (player_uuid: string, style: string, itemValues: item_values[]) => {
+//   const mappedItems = itemValues.map(([item, value]) => `${item} = ${value}`).toString();
+//   return Query(
+//     `
+//     UPDATE _${player_uuid}_styles
+//     SET ${mappedItems}
+//     WHERE style_name = '${style}'
+//     `
+//   );
+// };

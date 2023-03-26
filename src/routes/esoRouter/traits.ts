@@ -5,4 +5,10 @@ export default function (app: Router) {
   const route = Router();
   //************************************ /dev/esoapp/traits
   app.use("/traits", route);
+
+  // route.get("/one", controllers.traits.getOneWrit);
+
+  // route.get("/all", controllers.traits.getAlltraits);
+
+  // route.put("/update", controllers.traits.updateWrit);
 }

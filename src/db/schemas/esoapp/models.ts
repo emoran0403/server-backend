@@ -82,6 +82,7 @@ export type all_item_list = all_jewelry_list | all_weapon_list | all_apparel_lis
 export type all_styled_items = all_weapon_list | all_apparel_list;
 
 export type item_values = [all_styled_items, trueFalseString];
+export type trait_values = [all_trait_list, trueFalseString];
 
 export type styles =
   | "High Elf"

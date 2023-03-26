@@ -1,6 +1,6 @@
 import { Query } from "../../query";
 import { ALL_APPAREL_LIST, ALL_JEWLERY_LIST, ALL_WEAPON_LIST, CRAFTABLES, FALSE10, TRAITS } from "./constants";
-import { all_item_list, tables } from "./models";
+import { all_item_list, tables, trait_values } from "./models";
 
 /**
  * Used to generate the armor trait table for a player
@@ -138,7 +138,7 @@ const fillAnyTraitTable = (uuid: string, table: tables) =>
  * @param table the name of the table to generate "jewelry" | "weapon" | "armor"
  * @param traitValues tuple array containing arrays of ['trait', 'true || false']
  */
-const updateAnyTraitTable = (uuid: string, table: tables, traitValues: string[][]) =>
+const updateAnyTraitTable = (uuid: string, table: tables, traitValues: trait_values[]) =>
   Query(
     `
           UPDATE _${uuid}_${table}_traits
