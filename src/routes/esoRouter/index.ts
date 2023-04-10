@@ -27,7 +27,7 @@ export interface reqDTO {
   plainTextPassword?: string;
   style?: styles;
   itemValues?: item_values[];
-  uuidArray?: string[];
+  uuidArray?: number[];
   table?: tables;
   item?: all_item_list;
   traitValues: trait_values[];

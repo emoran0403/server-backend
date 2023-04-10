@@ -16,7 +16,7 @@ const setupStyles = async (req: Request, res: Response, next: NextFunction) => {
 
 const updateStyle = async (req: Request, res: Response, next: NextFunction) => {
   /**
-   * updateStylesTable query
+   * make this also check and update all owned as well
    */
   try {
     const reqDTO: reqDTO = { ...req.body };
@@ -52,7 +52,8 @@ const addNewStyle = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const reqDTO: reqDTO = { ...req.body };
     const results = await services.styles.addNewStyle(reqDTO);
-    if (results) return res.json({ message: "New style added successfully!" });
+    if (results.affectedRows) return res.json({ message: "New style added successfully!" });
+    return res.json({ message: "Something went wrong!" });
   } catch (error) {
     next(error);
   }
