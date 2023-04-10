@@ -3,25 +3,25 @@ import { reqDTO } from "../index";
 
 const updateStyle = async (reqDTO: reqDTO) => {
   const { player_uuid, style, itemValues } = reqDTO;
-  const results = await queries.styles.updateStylesTable(Number(player_uuid), style, itemValues);
+  const results = await queries.styles.updateStylesTable(player_uuid, style, itemValues);
   return results.affectedRows;
 };
 
 const getOneStyle = async (reqDTO: reqDTO) => {
   const { player_uuid, style } = reqDTO;
-  const results = await queries.styles.selectSingleStyle(Number(player_uuid), style);
+  const results = await queries.styles.selectSingleStyle(player_uuid, style);
   return results;
 };
 
 const getAllStyles = async (reqDTO: reqDTO) => {
   const { player_uuid } = reqDTO;
-  const results = await queries.styles.selectAllStyles(Number(player_uuid));
+  const results = await queries.styles.selectAllStyles(player_uuid);
   return results;
 };
 
 const addNewStyle = async (reqDTO: reqDTO) => {
   const { player_uuid, style } = reqDTO;
-  const results = await queries.styles.addNewStyle(Number(player_uuid), style);
+  const results = await queries.styles.addNewStyle(player_uuid, style);
   return results;
 };
 

@@ -111,7 +111,7 @@ import { all_item_list, tables, trait_values } from "./models";
 const genAnyTraitTable = (player_uuid: string, table: tables) =>
   Query(
     `
-    CREATE TABLE _${player_uuid}_${table.toLowerCase()}_traits (
+    CREATE TABLE _${player_uuid.toString()}_${table.toLowerCase()}_traits (
         ${table}_name TEXT,
         ${TRAITS[`${table.toUpperCase()}_TRAITS`].map((item) => `${item} BOOLEAN`).toString()},
         all_owned BOOLEAN
@@ -127,7 +127,7 @@ const genAnyTraitTable = (player_uuid: string, table: tables) =>
 const fillAnyTraitTable = (player_uuid: string, table: tables) =>
   Query(
     `
-    INSERT INTO _${player_uuid}_${table}_traits (${table}_name, ${TRAITS[`${table.toLocaleUpperCase()}_TRAITS`].toString()}, all_owned)
+    INSERT INTO _${player_uuid.toString()}_${table}_traits (${table}_name, ${TRAITS[`${table.toLocaleUpperCase()}_TRAITS`].toString()}, all_owned)
     VALUES (${CRAFTABLES[`${table.toLocaleUpperCase()}`].map((item) => `(${item}, ${FALSE10}.toString())`).toString()};
     `
   );
@@ -138,12 +138,12 @@ const fillAnyTraitTable = (player_uuid: string, table: tables) =>
  * @param table the name of the table to generate "jewelry" | "weapon" | "armor"
  * @param traitValues tuple array containing arrays of ['trait', 'true || false']
  */
-const updateAnyTraitTable = (player_uuid: string, table: tables, traitValues: trait_values[]) =>
+const updateAnyTraitTable = (player_uuid: string, table: tables, traitValues: trait_values[], item: all_item_list) =>
   Query(
     `
-          UPDATE _${player_uuid}_${table}_traits
+          UPDATE _${player_uuid.toString()}_${table}_traits
           SET ${traitValues.map(([trait, value]) => `${trait} = ${value}`).toString()}
-          WHERE ${table}_traits = ${table}_name;
+          WHERE ${table}_name = '${item}';
     `
   );
 
@@ -156,7 +156,7 @@ const updateAnyTraitTable = (player_uuid: string, table: tables, traitValues: tr
 const selectSingleFromTraitTable = (player_uuid: string, table: tables, item: all_item_list) =>
   Query(
     `
-    SELECT * FROM _${player_uuid}_${table}_traits WHERE ${table}_name = '${item}';
+    SELECT * FROM _${player_uuid.toString()}_${table}_traits WHERE ${table}_name = '${item}';
     `
   );
 
@@ -168,7 +168,7 @@ const selectSingleFromTraitTable = (player_uuid: string, table: tables, item: al
 const selectAllFromTraitTable = (player_uuid: string, table: tables) =>
   Query(
     `
-    SELECT * FROM _${player_uuid}_${table}_traits;
+    SELECT * FROM _${player_uuid.toString()}_${table}_traits;
     `
   );
 

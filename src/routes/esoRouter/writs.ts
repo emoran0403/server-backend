@@ -6,11 +6,11 @@ export default function (app: Router) {
   //************************************ /dev/esoapp/writs
   app.use("/writs", route);
 
-  route.get("/one", controllers.writs.getOneWrit);
+  route.get("/one", controllers.writs.getOneWrit); // done testing
 
-  route.get("/all", controllers.writs.getAllWrits);
+  route.get("/all", controllers.writs.getAllWrits); // done testing
 
-  route.put("/update", controllers.writs.updateWrit);
+  route.put("/update", controllers.writs.updateWrit); // done testing
 
-  route.post("/new", controllers.writs.newWrit);
+  route.post("/new", controllers.writs.newWrit); // done testing
 }

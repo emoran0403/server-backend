@@ -6,9 +6,9 @@ export default function (app: Router) {
   //************************************ /dev/esoapp/traits
   app.use("/traits", route);
 
-  // route.get("/one", controllers.traits.getOneWrit);
+  route.get("/one", controllers.traits.getOneTrait); // done testing
 
-  // route.get("/all", controllers.traits.getAlltraits);
+  route.get("/all", controllers.traits.getAlltraits); // done testing
 
-  // route.put("/update", controllers.traits.updateTrait);
+  route.put("/update", controllers.traits.updateTrait); // done testing
 }

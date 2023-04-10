@@ -1,12 +1,6 @@
 import { queries } from "../../../db/schemas/esoapp";
 import { reqDTO } from "../index";
 
-const updateTrait = async (reqDTO: reqDTO) => {
-  const { player_uuid, table, traitValues } = reqDTO;
-  const results = await queries.traits.updateAnyTraitTable(player_uuid, table, traitValues);
-  return results.affectedRows;
-};
-
 const getOneTrait = async (reqDTO: reqDTO) => {
   const { player_uuid, table, item } = reqDTO;
   const results = await queries.traits.selectSingleFromTraitTable(player_uuid, table, item);
@@ -19,8 +13,13 @@ const getAllTraits = async (reqDTO: reqDTO) => {
   return results;
 };
 
+const updateTrait = async (reqDTO: reqDTO) => {
+  const { player_uuid, table, traitValues, item } = reqDTO;
+  const results = await queries.traits.updateAnyTraitTable(player_uuid, table, traitValues, item);
+  return results;
+};
 export const traits = {
-  updateTrait,
   getOneTrait,
   getAllTraits,
+  updateTrait,
 };

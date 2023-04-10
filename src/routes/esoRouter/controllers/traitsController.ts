@@ -28,6 +28,9 @@ const updateTrait = async (req: Request, res: Response, next: NextFunction) => {
    */
   try {
     const reqDTO: reqDTO = { ...req.body };
+    const results = await services.traits.updateTrait(reqDTO);
+    if (results.affectedRows) return res.json({ message: "Trait updated successfully!" });
+    return res.json({ message: "Something went wrong!" });
   } catch (error) {
     next(error);
   }

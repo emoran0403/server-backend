@@ -6,11 +6,11 @@ export default function (app: Router) {
   //************************************ /dev/esoapp/styles
   app.use("/styles", route);
 
-  route.get("/one", controllers.styles.getOneStyle);
+  route.get("/one", controllers.styles.getOneStyle); // done testing
 
-  route.get("/all", controllers.styles.getAllStyles);
+  route.get("/all", controllers.styles.getAllStyles); // done testing
 
-  route.put("/update", controllers.styles.updateStyle);
+  route.put("/update", controllers.styles.updateStyle); // done testing
 
-  route.post("/new", controllers.styles.addNewStyle);
+  route.post("/new", controllers.styles.addNewStyle); // done testing
 }

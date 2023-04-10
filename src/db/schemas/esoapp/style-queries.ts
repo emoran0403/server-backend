@@ -7,9 +7,9 @@ import { item_values } from "./models";
  * @param uuid - the uuid of the player.
  * @returns
  */
-const genStylesTable = (player_uuid: number) =>
+const genStylesTable = (player_uuid: string) =>
   Query(
-    `CREATE TABLE _${player_uuid}_styles (
+    `CREATE TABLE _${player_uuid.toString()}_styles (
       style_name TEXT PRIMARY KEY,
       axes Boolean,
       belts Boolean,
@@ -34,10 +34,10 @@ const genStylesTable = (player_uuid: number) =>
  * @param uuid - the uuid of the player.
  * @returns
  */
-const fillStylesTable = (player_uuid: number) =>
+const fillStylesTable = (player_uuid: string) =>
   Query(
     `
-    INSERT INTO _${player_uuid}_styles 
+    INSERT INTO _${player_uuid.toString()}_styles 
     (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
     VALUES (${STYLES.map(
       (style) => `('${style}', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)`
@@ -52,10 +52,10 @@ const fillStylesTable = (player_uuid: number) =>
  * @param itemValues - tuple array containing arrays of ['item', 'true' || 'false']
  * @returns
  */
-const updateStylesTable = (player_uuid: number, style: string, itemValues: item_values[]) =>
+const updateStylesTable = (player_uuid: string, style: string, itemValues: item_values[]) =>
   Query(
     `
-    UPDATE _${player_uuid}_styles
+    UPDATE _${player_uuid.toString()}_styles
     SET ${itemValues.map(([item, value]) => `${item} = ${value}`).toString()}
     WHERE style_name = '${style}'
     `
@@ -67,9 +67,9 @@ const updateStylesTable = (player_uuid: number, style: string, itemValues: item_
  * @param style - the style to select.
  * @returns
  */
-const selectSingleStyle = (player_uuid: number, style: string) =>
+const selectSingleStyle = (player_uuid: string, style: string) =>
   Query(`
-  SELECT * FROM _${player_uuid}_styles WHERE style_name = '${style}'
+  SELECT * FROM _${player_uuid.toString()}_styles WHERE style_name = '${style}'
   `);
 
 /**
@@ -77,9 +77,9 @@ const selectSingleStyle = (player_uuid: number, style: string) =>
  * @param uuid - the uuid of the player.
  * @returns
  */
-const selectAllStyles = (player_uuid: number) =>
+const selectAllStyles = (player_uuid: string) =>
   Query(`
-SELECT * FROM _${player_uuid}_styles;
+SELECT * FROM _${player_uuid.toString()}_styles;
 `);
 
 /**
@@ -88,10 +88,10 @@ SELECT * FROM _${player_uuid}_styles;
  * @param style the new style
  * @returns
  */
-const addNewStyle = (uuid: number, style: string) =>
+const addNewStyle = (player_uuid: string, style: string) =>
   Query(
     `
-      INSERT INTO _${uuid}_styles
+      INSERT INTO _${player_uuid}_styles
       (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
       VALUES ('${style}', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
     `
@@ -99,10 +99,10 @@ const addNewStyle = (uuid: number, style: string) =>
 
 //* trying to update an array of player uuids - not working as expected
 // Query(`
-// ${uuidArray
-//   .map((uuid) => {
+// ${player_uuidArray
+//   .map((player_uuid) => {
 //     `
-//     INSERT INTO _${uuid}_styles
+//     INSERT INTO _${player_uuid}_styles
 //     (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
 //     VALUES ('${style.toString()}', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
 //     `;
@@ -112,8 +112,8 @@ const addNewStyle = (uuid: number, style: string) =>
 
 //* hardcoding a single player's style - not working as expected
 //   Query(`
-// ${uuidArray
-//   .map((uuid) => {
+// ${player_uuidArray
+//   .map((player_uuid) => {
 //     `
 //     INSERT INTO _1_styles
 //     (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
@@ -140,11 +140,11 @@ export default {
  * add a new style for future proofing
  */
 
-// const updateStylesTable = (player_uuid: number, style: string, itemValues: item_values[]) => {
+// const updateStylesTable = (player_uuid: string, style: string, itemValues: item_values[]) => {
 //   const mappedItems = itemValues.map(([item, value]) => `${item} = ${value}`).toString();
 //   return Query(
 //     `
-//     UPDATE _${player_uuid}_styles
+//     UPDATE _${player_uuid.toString()}_styles
 //     SET ${mappedItems}
 //     WHERE style_name = '${style}'
 //     `

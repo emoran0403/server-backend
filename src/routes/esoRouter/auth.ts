@@ -13,9 +13,9 @@ export default function (app: Router) {
   //************************************ /dev/esoapp/users
   app.use("/users", route);
 
-  route.get("/one", controllers.auth.getOnePlayer);
+  route.get("/one", controllers.auth.getOnePlayer); // done testing
 
-  route.get("/all", controllers.auth.getAllPlayers);
+  route.get("/all", controllers.auth.getAllPlayers); // done testing
 
-  route.post("/new", controllers.auth.newPlayer);
+  route.post("/new", controllers.auth.newPlayer); // done testing
 }
