@@ -13,6 +13,8 @@ const insertPlayer = async (reqDTO: reqDTO) => {
   const { username, plainTextPassword } = reqDTO;
   const hashedPassword = generateHash(plainTextPassword);
   const results = await queries.auth.newPlayer(username, hashedPassword);
+
+  console.log("results: ", results);
   return results;
 };
 

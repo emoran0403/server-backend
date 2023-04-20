@@ -25,9 +25,22 @@ const addNewStyle = async (reqDTO: reqDTO) => {
   return results;
 };
 
+const genStylesTable = async (reqDTO: reqDTO) => {
+  const { player_uuid } = reqDTO;
+  const results = await queries.styles.genStylesTable(player_uuid);
+  return results;
+};
+const fillStylesTable = async (reqDTO: reqDTO) => {
+  const { player_uuid } = reqDTO;
+  const results = await queries.styles.fillStylesTable(player_uuid);
+  return results;
+};
+
 export const styles = {
   updateStyle,
   getOneStyle,
   getAllStyles,
   addNewStyle,
+  genStylesTable,
+  fillStylesTable,
 };

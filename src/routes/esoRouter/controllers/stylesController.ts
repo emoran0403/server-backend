@@ -59,10 +59,33 @@ const addNewStyle = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const genStylesTable = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const reqDTO: reqDTO = { ...req.body };
+    const results = await services.styles.genStylesTable(reqDTO);
+    if (results.affectedRows) return res.json({ message: "Successfully generated styles table!" });
+    return res.json({ message: "Something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
+};
+const fillStylesTable = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const reqDTO: reqDTO = { ...req.body };
+    const results = await services.styles.fillStylesTable(reqDTO);
+    if (results.affectedRows) return res.json({ message: "Successfully filled styles table!" });
+    return res.json({ message: "Something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const styles = {
   setupStyles,
   updateStyle,
   getOneStyle,
   getAllStyles,
   addNewStyle,
+  genStylesTable,
+  fillStylesTable,
 };

@@ -4,12 +4,30 @@ import { reqDTO } from "../index";
 
 const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    //* check if player already exists
+    let reqDTO: reqDTO = { ...req.body };
     const playerExists = await services.auth.doesPlayerExist(reqDTO);
-
     if (playerExists) return res.status(400).json({ message: "player username already exists" });
 
-    const results = await services.auth.insertPlayer(reqDTO);
+    //* insert player, grabbing player_uuid
+    const insertPlayerResults = await services.auth.insertPlayer(reqDTO);
+    reqDTO.player_uuid = insertPlayerResults.rows[0].player_uuid;
+
+    //* generate styles and fill styles
+    let genStyleResults;
+    if (insertPlayerResults?.affectedRows) {
+      genStyleResults = services.styles.genStylesTable(reqDTO);
+    }
+    let fillStylesResults;
+    if (genStyleResults?.affectedRows) {
+      fillStylesResults = services.styles.fillStylesTable(reqDTO);
+    }
+
+    if (insertPlayerResults.affectedRows && insertPlayerResults.affectedRows && insertPlayerResults.affectedRows) {
+      return res.status(200).json({ message: "all good" });
+    } else {
+      return res.status(200).json({ message: "Something went wrong!" });
+    }
 
     /**
      * generate table functions go here
@@ -21,7 +39,7 @@ const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
     // const writResults = await queries.writs.genWritTable(results[0].player_uuid);
     // !?! testing writs here
 
-    res.status(200).json(results.rows);
+    // res.status(200).json({ message: "check logs" });
   } catch (error) {
     next(error);
   }
