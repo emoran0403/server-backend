@@ -12,5 +12,9 @@ export default function (app: Router) {
 
   route.put("/update", controllers.styles.updateStyle); // done testing
 
-  route.post("/new", controllers.styles.addNewStyle); // done testing
+  route.post("/new", controllers.styles.addNewStyle); //! should not be needed often
+
+  route.post("/generate", controllers.styles.makeBigStyleTable); // done testing
+
+  route.post("/fill", controllers.styles.fillBigStyleTable); // done testing
 }

@@ -31,6 +31,7 @@ export interface reqDTO {
   table?: tables;
   item?: all_item_list;
   traitValues: trait_values[];
+  new_style?: string[];
 }
 
 // route.get("/route", async (req, res, next) => {

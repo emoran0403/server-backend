@@ -29,14 +29,9 @@ const getOnePlayer = async (reqDTO: reqDTO) => {
   return results;
 };
 
-const generateTables = async () => {
-  // this is where i can generate all the tables for a new player
-};
-
 export const auth = {
   doesPlayerExist,
   insertPlayer,
   getOnePlayer,
   getAllPlayers,
-  generateTables,
 };

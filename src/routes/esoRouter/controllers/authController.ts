@@ -13,15 +13,7 @@ const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
     const insertPlayerResults = await services.auth.insertPlayer(reqDTO);
     reqDTO.player_uuid = insertPlayerResults.rows[0].player_uuid;
 
-    //* generate styles and fill styles
-    let genStyleResults;
-    if (insertPlayerResults?.affectedRows) {
-      genStyleResults = services.styles.genStylesTable(reqDTO);
-    }
-    let fillStylesResults;
-    if (genStyleResults?.affectedRows) {
-      fillStylesResults = services.styles.fillStylesTable(reqDTO);
-    }
+    console.log("reqDTO from auth controller", reqDTO);
 
     if (insertPlayerResults.affectedRows && insertPlayerResults.affectedRows && insertPlayerResults.affectedRows) {
       return res.status(200).json({ message: "all good" });

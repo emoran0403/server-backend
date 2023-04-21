@@ -1,49 +1,6 @@
 import { Query } from "../../query";
-import { STYLES } from "./constants";
-import { item_values } from "./models";
-
-/**
- * Used to generate the styles table for a player
- * @param uuid - the uuid of the player.
- * @returns
- */
-const genStylesTable = (player_uuid: string) =>
-  Query(
-    `CREATE TABLE _${player_uuid.toString()}_styles (
-      style_name TEXT PRIMARY KEY,
-      axes Boolean,
-      belts Boolean,
-      boots Boolean,
-      bows Boolean,
-      chests Boolean,
-      daggers Boolean,
-      gloves Boolean,
-      helmets Boolean,
-      legs Boolean,
-      maces Boolean,
-      shields Boolean,
-      shoulders Boolean,
-      staves Boolean,
-      swords Boolean,
-      all_owned boolean
-      );`
-  );
-
-/**
- * Used to populate a player's style table with the initial false values.  This will need to be run once when player is first created.
- * @param uuid - the uuid of the player.
- * @returns
- */
-const fillStylesTable = (player_uuid: string) =>
-  Query(
-    `
-    INSERT INTO _${player_uuid.toString()}_styles 
-    (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
-    VALUES (${STYLES.map(
-      (style) => `('${style}', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)`
-    ).toString()});
-      `
-  );
+import { STYLED_ITEMS, STYLES } from "./constants";
+import { item_values, trueFalseString } from "./models";
 
 /**
  * Used to update a single style with the unlocked items
@@ -52,24 +9,24 @@ const fillStylesTable = (player_uuid: string) =>
  * @param itemValues - tuple array containing arrays of ['item', 'true' || 'false']
  * @returns
  */
-const updateStylesTable = (player_uuid: string, style: string, itemValues: item_values[]) =>
+const updateStylesTable = (player_uuid: string, column: string, value: trueFalseString) =>
   Query(
     `
-    UPDATE _${player_uuid.toString()}_styles
-    SET ${itemValues.map(([item, value]) => `${item} = ${value}`).toString()}
-    WHERE style_name = '${style}'
+    UPDATE player_styles
+    SET ${column} = ${value}
+    WHERE player_uuid = '${player_uuid}'
     `
   );
 
 /**
  * Used to return the unlocked items for the given style
  * @param uuid - the uuid of the player.
- * @param style - the style to select.
+ * @param style_columns - the style to select.
  * @returns
  */
-const selectSingleStyle = (player_uuid: string, style: string) =>
+const selectSingleStyle = (player_uuid: string, style_columns: string[]) =>
   Query(`
-  SELECT * FROM _${player_uuid.toString()}_styles WHERE style_name = '${style}'
+  SELECT ${style_columns} FROM player_styles WHERE player_uuid = '${player_uuid}'
   `);
 
 /**
@@ -79,7 +36,7 @@ const selectSingleStyle = (player_uuid: string, style: string) =>
  */
 const selectAllStyles = (player_uuid: string) =>
   Query(`
-SELECT * FROM _${player_uuid.toString()}_styles;
+SELECT * FROM player_styles WHERE player_uuid = '${player_uuid}';
 `);
 
 /**
@@ -88,48 +45,37 @@ SELECT * FROM _${player_uuid.toString()}_styles;
  * @param style the new style
  * @returns
  */
-const addNewStyle = (player_uuid: string, style: string) =>
+const addNewStyle = (newColumns: string[]) =>
   Query(
     `
-      INSERT INTO _${player_uuid}_styles
-      (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
-      VALUES ('${style}', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+    ALTER TABLE player_styles ADD ${newColumns.toString()}
     `
   );
 
-//* trying to update an array of player uuids - not working as expected
-// Query(`
-// ${player_uuidArray
-//   .map((player_uuid) => {
-//     `
-//     INSERT INTO _${player_uuid}_styles
-//     (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
-//     VALUES ('${style.toString()}', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
-//     `;
-//   })
-//   .toString()}
-//   `);
+const makeBigStyleTable = (styledItems: string[]) =>
+  Query(`
+  CREATE TABLE player_styles
+  (
+    player_uuid TEXT PRIMARY KEY,
+    ${styledItems.toString()}
+    );
+    `);
 
-//* hardcoding a single player's style - not working as expected
-//   Query(`
-// ${player_uuidArray
-//   .map((player_uuid) => {
-//     `
-//     INSERT INTO _1_styles
-//     (style_name, axes, belts, boots, bows, chests, daggers, gloves, helmets, legs, maces, shields, shoulders, staves, swords, all_owned)
-//     VALUES ('penislol', false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
-//     `;
-//   })
-//   .toString()}
-// `);
+const fillBigStyleTable = (player_uuid: string, styledItems: string[], falses: string[]) =>
+  Query(`
+    INSERT INTO player_styles 
+    (player_uuid, ${styledItems.toString()})
+    VALUES
+    (${player_uuid}, ${falses.toString()});
+    `);
 
 export default {
-  genStylesTable,
-  fillStylesTable,
   updateStylesTable,
   selectSingleStyle,
   selectAllStyles,
   addNewStyle,
+  makeBigStyleTable,
+  fillBigStyleTable,
 };
 
 /**

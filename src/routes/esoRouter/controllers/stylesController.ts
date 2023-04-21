@@ -2,18 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
 import { reqDTO } from "../index";
 
-const setupStyles = async (req: Request, res: Response, next: NextFunction) => {
-  /**
-   * generate player styles table query
-   * fill player styles query
-   */
-  try {
-    const reqDTO: reqDTO = { ...req.body };
-  } catch (error) {
-    next(error);
-  }
-};
-
 const updateStyle = async (req: Request, res: Response, next: NextFunction) => {
   /**
    * make this also check and update all owned as well
@@ -59,21 +47,23 @@ const addNewStyle = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const genStylesTable = async (req: Request, res: Response, next: NextFunction) => {
+const makeBigStyleTable = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
-    const results = await services.styles.genStylesTable(reqDTO);
-    if (results.affectedRows) return res.json({ message: "Successfully generated styles table!" });
+    const results = await services.styles.makeBigStyleTable();
+    console.log("results", results);
+    if (results) return res.json({ message: "Successfully made styles table!" });
     return res.json({ message: "Something went wrong!" });
   } catch (error) {
     next(error);
   }
 };
-const fillStylesTable = async (req: Request, res: Response, next: NextFunction) => {
+
+const fillBigStyleTable = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const reqDTO: reqDTO = { ...req.body };
-    const results = await services.styles.fillStylesTable(reqDTO);
-    if (results.affectedRows) return res.json({ message: "Successfully filled styles table!" });
+    const results = await services.styles.fillBigStyleTable(reqDTO);
+    console.log("results", results);
+    if (results) return res.json({ message: "Successfully filled styles table!" });
     return res.json({ message: "Something went wrong!" });
   } catch (error) {
     next(error);
@@ -81,11 +71,10 @@ const fillStylesTable = async (req: Request, res: Response, next: NextFunction) 
 };
 
 export const styles = {
-  setupStyles,
   updateStyle,
   getOneStyle,
   getAllStyles,
   addNewStyle,
-  genStylesTable,
-  fillStylesTable,
+  makeBigStyleTable,
+  fillBigStyleTable,
 };

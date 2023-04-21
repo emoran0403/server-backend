@@ -1,3 +1,19 @@
+export type styled_items =
+  | "axes"
+  | "belts"
+  | "boots"
+  | "bows"
+  | "chests"
+  | "daggers"
+  | "gloves"
+  | "helmets"
+  | "legs"
+  | "maces"
+  | "shields"
+  | "shoulders"
+  | "staves"
+  | "swords";
+
 export type tables = "jewelry" | "weapon" | "armor";
 export interface traits {
   WEAPON_TRAITS: weapon_traits[];
@@ -29,7 +45,7 @@ export type armor_traits =
   | "Sturdy"
   | "Impenetrable"
   | "Reinforced"
-  | "Well-fitted"
+  | "Wellfitted"
   | "Training"
   | "Infused"
   | "Invigorating"
@@ -113,13 +129,13 @@ export type styles =
   | "Daggerfall Covenant"
   | "Ebonheart Pact"
   | "Ra Gada"
-  | "Soul-Shriven"
+  | "SoulShriven"
   | "Morag Tong"
   | "Skinchanger"
-  | "Abah's Watch"
+  | "Abahs Watch"
   | "Thieves Guild"
   | "Assassins League"
-  | "Dro-m'Athra"
+  | "DromAthra"
   | "Dark Brotherhood"
   | "Ebony"
   | "Draugr"
@@ -153,7 +169,7 @@ export type styles =
   | "Silver Dawn"
   | "Welkynar"
   | "Honor Guard"
-  | "Dead-Water"
+  | "DeadWater"
   | "Elder Argonian"
   | "Coldsnap"
   | "Meridian"
@@ -161,7 +177,7 @@ export type styles =
   | "Pellitine"
   | "Sunspire"
   | "Dragonguard"
-  | "Stags of Z'en"
+  | "Stags of Zen"
   | "Moongrave Fane"
   | "Refabricated"
   | "Shield of Senchal"
@@ -184,14 +200,14 @@ export type styles =
   | "Wayward Guardian"
   | "House Hexos"
   | "Waking Flame"
-  | "True-Sworn"
+  | "TrueSworn"
   | "Ivory Brigade"
-  | "Sul-Xan"
+  | "SulXan"
   | "Black Fin Legion"
   | "Ancient Daedric"
   | "Crimson Oath"
   | "Silver Rose"
-  | "Annihilarch's Chosen"
+  | "Annihilarchs Chosen"
   | "Fargrave Guardian"
   | "Dreadsails"
   | "Ascendant Order"
@@ -201,76 +217,76 @@ export type styles =
 
 export type armor_sets =
   | `Ashen Grip`
-  | `Death's Wind`
-  | `Night's Silence`
+  | `Deaths Wind`
+  | `Nights Silence`
   | `Armor of the Seducer`
-  | `Torug's Pact`
-  | `Twilight's Embrace`
+  | `Torugs Pact`
+  | `Twilights Embrace`
   | `Hist Bark`
-  | `Magnus' Gift`
-  | `Whitestrake's Retribution`
-  | `Alessia's Bulwark`
+  | `Magnus Gift`
+  | `Whitestrakes Retribution`
+  | `Alessias Bulwark`
   | `Song of Lamae`
-  | `Vampire's Kiss`
-  | `Hunding's Rage`
-  | `Night Mother's Gaze`
-  | `Willow's Path`
+  | `Vampires Kiss`
+  | `Hundings Rage`
+  | `Night Mothers Gaze`
+  | `Willows Path`
   | `Critical Riposte`
   | `Dauntless Combatant`
   | `Unchained Aggressor`
-  | `Oblivion's Foe`
-  | `Spectre's Eye`
-  | `Kagrenac's Hope`
-  | `Orgnum's Scales`
+  | `Oblivions Foe`
+  | `Spectres Eye`
+  | `Kagrenacs Hope`
+  | `Orgnums Scales`
   | `Eyes of Mara`
-  | `Shalidor's Curse`
+  | `Shalidors Curse`
   | `Way of the Arena`
-  | `Twice-Born Star`
+  | `TwiceBorn Star`
   | `Armor Master`
-  | `Noble's Conquest`
+  | `Nobles Conquest`
   | `Redistributor`
   | `Law of Julianos`
   | `Morkuldin`
   | `Trial by Fire`
   | `Clever Alchemist`
   | `Eternal Hunt`
-  | `Tava's Favor`
+  | `Tavas Favor`
   | `Kvatch Gladiator`
-  | `Pelinal's Aptitude`
-  | `Varen's Legacy`
-  | `Assassin's Guile`
+  | `Pelinals Aptitude`
+  | `Varens Legacy`
+  | `Assassins Guile`
   | `Daedric Trickery`
   | `Shacklebreaker`
   | `Fortified Brass`
   | `Innate Axiom`
   | `Mechanical Acuity`
   | `Adept Rider`
-  | `Nocturnal's Favor`
-  | `Sload's Semblance`
-  | `Grave-Stake Collector`
+  | `Nocturnals Favor`
+  | `Sloads Semblance`
+  | `GraveStake Collector`
   | `Might of the Lost Legion`
   | `Naga Shaman`
-  | `Coldharbour's Favorite`
-  | `Senche-raht's Grit`
-  | `Vastarie's Tutelage`
+  | `Coldharbours Favorite`
+  | `Sencherahts Grit`
+  | `Vastaries Tutelage`
   | `Ancient Dragonguard`
   | `Daring Corsair`
   | `New Moon Acolyte`
-  | `Dragon's Appetite`
+  | `Dragons Appetite`
   | `Spell Parasite`
-  | `Stuhn's Favor`
+  | `Stuhns Favor`
   | `Aetherial Ascension`
   | `Legacy of Karth`
-  | `Red Eagle's Fury`
-  | `Diamond's Victory`
+  | `Red Eagles Fury`
+  | `Diamonds Victory`
   | `Heartland Conqueror`
   | `Hist Whisperer`
   | `Deadlands Demolisher`
   | `Iron Flask`
   | `Wretched Vitality`
-  | `Druid's Braid`
-  | `Order's Wrath`
-  | `Serpent's Disdain`
-  | `Chimera's Rebuke`
+  | `Druids Braid`
+  | `Orders Wrath`
+  | `Serpents Disdain`
+  | `Chimeras Rebuke`
   | `Claw of the Forest Wraith`
   | `Old Growth Brewer`;
