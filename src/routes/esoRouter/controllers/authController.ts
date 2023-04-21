@@ -15,23 +15,16 @@ const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
 
     console.log("reqDTO from auth controller", reqDTO);
 
-    if (insertPlayerResults.affectedRows && insertPlayerResults.affectedRows && insertPlayerResults.affectedRows) {
-      return res.status(200).json({ message: "all good" });
-    } else {
-      return res.status(200).json({ message: "Something went wrong!" });
+    //* reqDTO now contains player_uuid
+    const trait_results = await services.traits.fillBigTraitTable(reqDTO);
+    if (trait_results.affectedRows) {
+      const style_results = await services.styles.fillBigStyleTable(reqDTO);
+      if (style_results.affectedRows) {
+        return res.status(200).json({ message: "successfully filled traits and styles tables" });
+      }
+      return res.status(200).json({ message: "could not fill styles table" });
     }
-
-    /**
-     * generate table functions go here
-     */
-
-    // !?! testing writs here
-    // const wow = await queries.writs.genWritTable("2");
-    // console.log(wow);
-    // const writResults = await queries.writs.genWritTable(results[0].player_uuid);
-    // !?! testing writs here
-
-    // res.status(200).json({ message: "check logs" });
+    return res.status(200).json({ message: "could not fill trait table" });
   } catch (error) {
     next(error);
   }
