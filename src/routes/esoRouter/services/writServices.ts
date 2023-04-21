@@ -1,25 +1,18 @@
 import { queries } from "../../../db/schemas/esoapp";
 import { reqDTO } from "../index";
 
-const doesWritExist = async (reqDTO: reqDTO) => {
-  const { player_uuid, writ_uuid } = reqDTO;
+// const doesWritExist = async (reqDTO: reqDTO) => {
+//   const { player_uuid, writ_uuid } = reqDTO;
 
-  const results = await queries.writs.selectWrit(player_uuid, writ_uuid);
-  if (results.length) return true;
-  return false;
-};
+//   const results = await queries.writs.selectWrit(player_uuid, writ_uuid);
+//   if (results.length) return true;
+//   return false;
+// };
 
 const getAllWrits = async (reqDTO: reqDTO) => {
   const { player_uuid } = reqDTO;
 
   const results = await queries.writs.selectAllWrits(player_uuid);
-  return results;
-};
-
-const getSingleWrit = async (reqDTO: reqDTO) => {
-  const { player_uuid, writ_uuid } = reqDTO;
-
-  const results = await queries.writs.selectWrit(player_uuid, writ_uuid);
   return results;
 };
 
@@ -37,10 +30,14 @@ const newWrit = async (reqDTO: reqDTO) => {
   return results;
 };
 
+const makeBigWritTable = async () => {
+  const results = await queries.writs.makeBigWritTable();
+  return results;
+};
+
 export const writs = {
-  doesWritExist,
   getAllWrits,
-  getSingleWrit,
   updateWrit,
   newWrit,
+  makeBigWritTable,
 };
