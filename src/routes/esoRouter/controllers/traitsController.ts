@@ -2,16 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
 import { reqDTO } from "../index";
 
-const getOneTrait = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const reqDTO: reqDTO = { ...req.body };
-    const results = await services.traits.getOneTrait(reqDTO);
-    res.json(results);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getAlltraits = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const reqDTO: reqDTO = { ...req.body };
@@ -23,9 +13,6 @@ const getAlltraits = async (req: Request, res: Response, next: NextFunction) => 
 };
 
 const updateTrait = async (req: Request, res: Response, next: NextFunction) => {
-  /**
-   * update trait
-   */
   try {
     const reqDTO: reqDTO = { ...req.body };
     const results = await services.traits.updateTrait(reqDTO);
@@ -36,8 +23,32 @@ const updateTrait = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const makeBigTraitTable = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const results = await services.traits.makeBigTraitTable();
+    console.log("results", results);
+    if (results) return res.json({ message: "Successfully made traits table!" });
+    return res.json({ message: "Something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const fillBigTraitTable = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const reqDTO: reqDTO = { ...req.body };
+    const results = await services.traits.fillBigTraitTable(reqDTO);
+    console.log("results", results);
+    if (results) return res.json({ message: "Successfully filled traits table!" });
+    return res.json({ message: "Something went wrong!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const traits = {
-  getOneTrait,
   getAlltraits,
   updateTrait,
+  makeBigTraitTable,
+  fillBigTraitTable,
 };

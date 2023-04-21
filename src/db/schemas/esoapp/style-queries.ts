@@ -1,6 +1,5 @@
 import { Query } from "../../query";
-import { STYLED_ITEMS, STYLES } from "./constants";
-import { item_values, trueFalseString } from "./models";
+import { trueFalseString } from "./models";
 
 /**
  * Used to update a single style with the unlocked items
@@ -77,22 +76,3 @@ export default {
   makeBigStyleTable,
   fillBigStyleTable,
 };
-
-/**
- * make a styles table for a player
- * fill it with the styles and default values
- * update an unlocked item within a style
- * return unlocked items within a style
- * add a new style for future proofing
- */
-
-// const updateStylesTable = (player_uuid: string, style: string, itemValues: item_values[]) => {
-//   const mappedItems = itemValues.map(([item, value]) => `${item} = ${value}`).toString();
-//   return Query(
-//     `
-//     UPDATE _${player_uuid.toString()}_styles
-//     SET ${mappedItems}
-//     WHERE style_name = '${style}'
-//     `
-//   );
-// };

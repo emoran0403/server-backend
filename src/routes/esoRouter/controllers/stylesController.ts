@@ -3,9 +3,6 @@ import { services } from "../services";
 import { reqDTO } from "../index";
 
 const updateStyle = async (req: Request, res: Response, next: NextFunction) => {
-  /**
-   * make this also check and update all owned as well
-   */
   try {
     const reqDTO: reqDTO = { ...req.body };
     const results = await services.styles.updateStyle(reqDTO);

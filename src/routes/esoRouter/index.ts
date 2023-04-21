@@ -3,7 +3,7 @@ import authRouter from "./auth";
 import writRouter from "./writs";
 import stylesRouter from "./styles";
 import traitsRouter from "./traits";
-import { all_item_list, item_values, styles, tables, trait_values, trueFalseString, writ } from "../../db/schemas/esoapp/models";
+import { all_item_list, all_trait_list, item_values, styles, tables, trait_values, trueFalseString, writ } from "../../db/schemas/esoapp/models";
 
 export default function (app: Router) {
   const route = Router();
@@ -32,6 +32,7 @@ export interface reqDTO {
   item?: all_item_list;
   traitValues: trait_values[];
   new_style?: string[];
+  trait?: all_trait_list;
 }
 
 // route.get("/route", async (req, res, next) => {
