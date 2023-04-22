@@ -1,16 +1,22 @@
 import * as bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken";
+import CONFIG from "../../config";
 
-// takes a plaintext password, then salts and hashes it, and returns the encrypted password
-export function generateHash(password: string): string {
-  const salt = bcrypt.genSaltSync(12);
-  const hash = bcrypt.hashSync(password, salt);
+// Returns a hased password from the plaintextPassword
+export function generateHash(plaintextPassword: string) {
+  const saltRounds = 12;
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hash = bcrypt.hashSync(plaintextPassword, salt);
   return hash;
 }
 
-// compares a plaintext password with its hash, returning a boolean if they match
-export function compareHash(password: string, hashed: string): boolean {
-  return bcrypt.compareSync(password, hashed);
+// Returns a Boolean as the result of comparing a plaintextPassword against the hashedPassword
+export function compareHash(plaintextPassword: string, hashedPassword: string) {
+  return bcrypt.compareSync(plaintextPassword, hashedPassword);
 }
 
-// console.log(generateHash("hunter2"));
-// hunter2 => $2b$12$RSRV9yDnB6MlPQKtzr0WieDPo09vf1xyNkFfu/h7KZCzOjk6nFsYG
+// Returns a signed JWT which includes the username and user_id
+export function generateToken(username: string, user_id: number) {
+  const token = jwt.sign({ username, user_id }, CONFIG.jwt.secret);
+  return token;
+}

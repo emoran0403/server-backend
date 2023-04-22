@@ -1,5 +1,6 @@
+import { Request } from "express";
 import { queries } from "../../../db/schemas/esoapp";
-import { generateHash } from "../../middlewares/passwords";
+import { generateHash, generateToken } from "../../middlewares/passwords";
 import { reqDTO } from "../index";
 
 const doesPlayerExist = async (reqDTO: reqDTO) => {
@@ -29,9 +30,24 @@ const getOnePlayer = async (reqDTO: reqDTO) => {
   return results;
 };
 
+const login = async (reqDTO: Request) => {
+  if (!reqDTO.user) {
+    return null;
+  }
+
+  const { username, player_uuid } = reqDTO.user;
+
+  if (!username || !player_uuid) {
+    return null;
+  }
+
+  return generateToken(username, player_uuid);
+};
+
 export const auth = {
   doesPlayerExist,
   insertPlayer,
   getOnePlayer,
   getAllPlayers,
+  login,
 };

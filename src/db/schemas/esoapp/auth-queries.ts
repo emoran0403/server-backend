@@ -2,8 +2,8 @@ import { Query } from "../../query";
 
 export interface player {
   player_uuid: number;
-  user_name: string;
-  user_password: string;
+  username: string;
+  password: string;
   created_at: string;
 }
 
@@ -12,7 +12,7 @@ export interface player {
  * @param username
  * @returns
  */
-const findPlayer = (username: string) => Query<player[]>("SELECT * FROM players WHERE user_name = $1;", [username]);
+const findPlayer = (username: string) => Query<player[]>("SELECT * FROM players WHERE username = $1;", [username]);
 
 /**
  * Used to look up all players
@@ -27,7 +27,7 @@ const findAllPlayers = () => Query<player[]>("SELECT * FROM players;");
  * @returns
  */
 const newPlayer = (username: string, password: string) =>
-  Query("INSERT INTO players (user_name, user_password) VALUES ($1, $2) RETURNING *;", [username, password]);
+  Query("INSERT INTO players (username, password) VALUES ($1, $2) RETURNING *;", [username, password]);
 
 export default {
   findPlayer,

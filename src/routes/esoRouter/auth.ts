@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { controllers } from "./controllers";
+import passport from "passport";
 
 export interface player {
   player_uuid: number;
@@ -18,4 +19,8 @@ export default function (app: Router) {
   route.get("/all", controllers.auth.getAllPlayers);
 
   route.post("/new", controllers.auth.newPlayer);
+
+  route.post("/checkToken", passport.authenticate("jwt", { session: false }), controllers.auth.checkToken);
+
+  route.post("/login", passport.authenticate("local", { session: false }), controllers.auth.login);
 }

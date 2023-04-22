@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
 import { reqDTO } from "../index";
+import { generateToken } from "../../middlewares/passwords";
 
 const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -53,8 +54,32 @@ const getOnePlayer = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
+const checkToken = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.json({ message: `valid token!` });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const login = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const reqDupe = { ...req } as Request;
+    console.log("reqDupe user: ", reqDupe.user);
+    const token = await services.auth.login(reqDupe);
+    console.log("token: ", token);
+
+    if (token) return res.status(200).json({ message: "Successfully logged in", token });
+    return res.status(401).json({ message: "Could not login" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const auth = {
   newPlayer,
   getAllPlayers,
   getOnePlayer,
+  checkToken,
+  login,
 };

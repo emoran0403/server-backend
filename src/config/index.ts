@@ -25,4 +25,7 @@ export default {
   postgres: {
     connectionString: process.env.POSTGRES_URL!,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET_KEY,
+  },
 };
