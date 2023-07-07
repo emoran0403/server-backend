@@ -11,6 +11,24 @@ const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
     //   const results = await queries.writs.selectAllWrits("1");
     // console.log(results);
 
+    /**
+     * !?! This needs to be adjusted to add
+     * hasTrait: boolean;
+     * hasArmorSet: boolean;
+     * hasStyle: boolean;
+     *
+     * constants has the traits required for the armor set
+     *
+     * get all writs
+     * get all styles
+     * get all traits
+     *
+     * hasTrait:
+     * get the item from the writ
+     * iterate over traits and determine if the trait is learned on the item
+     *
+     */
+
     res.status(200).json(results);
   } catch (error) {
     next(error);

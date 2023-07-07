@@ -1,5 +1,5 @@
 import { Query } from "../../query";
-import { trueFalseString, writ } from "./models";
+import { db_writ, trueFalseString, writ } from "./models";
 
 /**
  * Used to add a writ to the player's writ table
@@ -31,7 +31,7 @@ const setCompletion = (player_uuid: string, writ_uuid: string, completion: trueF
  * Used to select all of a player's writs
  * @param player_uuid
  */
-const selectAllWrits = (player_uuid: string) =>
+const selectAllWrits = (player_uuid: string): Promise<db_writ[]> =>
   Query(
     `
          SELECT * FROM player_writs WHERE player_uuid = '${player_uuid}'; 

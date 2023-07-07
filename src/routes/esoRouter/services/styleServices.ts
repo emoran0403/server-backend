@@ -1,6 +1,6 @@
 import { queries } from "../../../db/schemas/esoapp";
 import { STYLED_ITEMS, STYLES } from "../../../db/schemas/esoapp/constants";
-import { reqDTO } from "../../../db/schemas/esoapp/models";
+import { db_list_response, reqDTO } from "../../../db/schemas/esoapp/models";
 
 const updateStyle = async (reqDTO: reqDTO) => {
   const { player_uuid, item, style, completion } = reqDTO;
@@ -25,7 +25,7 @@ const getOneStyle = async (reqDTO: reqDTO) => {
   return results;
 };
 
-const getAllStyles = async (reqDTO: reqDTO) => {
+const getAllStyles = async (reqDTO: reqDTO): Promise<db_list_response[]> => {
   const { player_uuid } = reqDTO;
   const results = await queries.styles.selectAllStyles(player_uuid);
   return results;

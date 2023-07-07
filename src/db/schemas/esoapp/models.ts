@@ -41,13 +41,6 @@ export interface writ {
 }
 
 export interface db_writ extends writ {
-  item: all_item_list;
-  quality: qualities;
-  trait: all_trait_list;
-  set: armor_sets;
-  style?: styles;
-  reward: number;
-
   writ_uuid: number;
   player_uuid: string;
   created_at: string;
@@ -300,3 +293,8 @@ export type armor_sets =
   | `Chimeras Rebuke`
   | `Claw of the Forest Wraith`
   | `Old Growth Brewer`;
+
+export interface db_list_response {
+  player_uuid: string;
+  [key: string]: boolean | string;
+}

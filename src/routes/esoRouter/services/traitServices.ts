@@ -1,8 +1,8 @@
 import { queries } from "../../../db/schemas/esoapp";
 import { ALL_APPAREL_LIST, ALL_JEWLERY_LIST, ALL_WEAPON_LIST, ARMOR_TRAITS, JEWELERY_TRAITS, WEAPON_TRAITS } from "../../../db/schemas/esoapp/constants";
-import { reqDTO } from "../../../db/schemas/esoapp/models";
+import { db_list_response, reqDTO } from "../../../db/schemas/esoapp/models";
 
-const getAllTraits = async (reqDTO: reqDTO) => {
+const getAllTraits = async (reqDTO: reqDTO): Promise<db_list_response[]> => {
   const { player_uuid } = reqDTO;
   const results = await queries.traits.selectAllFromTraitTable(player_uuid);
   return results;

@@ -1,5 +1,5 @@
 import { Query } from "../../query";
-import { trueFalseString } from "./models";
+import { db_list_response, trueFalseString } from "./models";
 
 /**
  * Used to update a single style with the unlocked items
@@ -33,7 +33,7 @@ const selectSingleStyle = (player_uuid: string, style_columns: string[]) =>
  * @param uuid - the uuid of the player.
  * @returns
  */
-const selectAllStyles = (player_uuid: string) =>
+const selectAllStyles = (player_uuid: string): Promise<db_list_response[]> =>
   Query(`
 SELECT * FROM player_styles WHERE player_uuid = '${player_uuid}';
 `);

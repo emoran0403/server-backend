@@ -1,5 +1,5 @@
 import { Query } from "../../query";
-import { trueFalseString } from "./models";
+import { db_list_response, trueFalseString } from "./models";
 
 /**
  * Used to update a specified trait table
@@ -20,7 +20,7 @@ const updateAnyTraitTable = (player_uuid: string, column: string, value: trueFal
  * Used to select all items from a specified trait table
  * @param player_uuid player uuid
  */
-const selectAllFromTraitTable = (player_uuid: string) =>
+const selectAllFromTraitTable = (player_uuid: string): Promise<db_list_response[]> =>
   Query(
     `
     SELECT * FROM player_traits WHERE player_uuid = '${player_uuid}'

@@ -1,5 +1,5 @@
 import { queries } from "../../../db/schemas/esoapp";
-import { reqDTO } from "../../../db/schemas/esoapp/models";
+import { db_writ, reqDTO } from "../../../db/schemas/esoapp/models";
 
 // const doesWritExist = async (reqDTO: reqDTO) => {
 //   const { player_uuid, writ_uuid } = reqDTO;
@@ -9,7 +9,7 @@ import { reqDTO } from "../../../db/schemas/esoapp/models";
 //   return false;
 // };
 
-const getAllWrits = async (reqDTO: reqDTO) => {
+const getAllWrits = async (reqDTO: reqDTO): Promise<db_writ[]> => {
   const { player_uuid } = reqDTO;
 
   const results = await queries.writs.selectAllWrits(player_uuid);

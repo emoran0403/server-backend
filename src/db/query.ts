@@ -1,7 +1,6 @@
 import config from "../config";
 import * as postgres from "pg";
 import { get } from "../loaders/postgresql";
-import { player } from "./schemas/esoapp/auth-queries";
 
 interface QueryResultExtended extends postgres.QueryResult {
   length?: number;
