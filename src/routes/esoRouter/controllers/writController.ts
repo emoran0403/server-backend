@@ -27,6 +27,16 @@ const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
      * get the item from the writ
      * iterate over traits and determine if the trait is learned on the item
      *
+     * hasStyle:
+     * get the item from the writ
+     * iterate over styles and determine if the style is learned for the item
+     * unlocks object is needed to turn style into individual item for matching
+     *
+     * hasArmorSet:
+     * get item from the writ
+     * count the number of true traits for the item
+     * must meet or exceed the number on traits needed object
+     *
      */
 
     res.status(200).json(results);

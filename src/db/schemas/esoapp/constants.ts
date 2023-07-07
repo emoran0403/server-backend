@@ -325,3 +325,72 @@ TRAITS_NEEDED[`Serpent's Disdain`] = 5;
 TRAITS_NEEDED[`Chimera's Rebuke`] = 7;
 TRAITS_NEEDED[`Claw of the Forest Wraith`] = 3;
 TRAITS_NEEDED[`Old Growth Brewer`] = 5;
+
+export interface unlocks_obj {
+  AXES: axes[];
+  BELTS: belts[];
+  BOOTS: boots[];
+  BOWS: bows[];
+  CHESTS: chests[];
+  DAGGERS: daggers[];
+  GLOVES: gloves[];
+  HELMETS: helmets[];
+  LEGS: legs[];
+  MACES: maces[];
+  SHIELDS: shields[];
+  SHOULDERS: shoulders[];
+  STAVES: staves[];
+  SWORDS: swords[];
+}
+
+export const UNLOCKS_OBJ: unlocks_obj = {
+  AXES: ["Battle Axe", "Axe"],
+  BELTS: ["Belt", "Sash", "Girdle"],
+  BOOTS: ["Sabatons", "Shoes", "Boots"],
+  BOWS: ["Bow"],
+  CHESTS: ["Robe", "Shirt", "Jack", "Curaiss"],
+  DAGGERS: ["Dagger"],
+  GLOVES: ["Gauntlets", "Gloves", "Bracers"],
+  HELMETS: ["Helm", "Hat", "Helmet"],
+  LEGS: ["Greaves", "Breeches", "Guards"],
+  MACES: ["Maul", "Mace"],
+  SHIELDS: ["Shield"],
+  SHOULDERS: ["Arm Cops", "Pauldron", "Epaulets"],
+  STAVES: ["Inferno Staff", "Ice Staff", "Lightning Staff", "Restoration Staff"],
+  SWORDS: ["Sword", "Greatsword"],
+};
+
+export type unlocks_list = "AXES" | "BELTS" | "BOOTS" | "BOWS" | "CHESTS" | "DAGGERS" | "GLOVES" | "HELMETS" | "LEGS" | "MACES" | "SHIELDS" | "SHOULDERS" | "STAVES" | "SWORDS";
+
+export const UNLOCKS_LIST: unlocks_list[] = [
+  "AXES",
+  "BELTS",
+  "BOOTS",
+  "BOWS",
+  "CHESTS",
+  "DAGGERS",
+  "GLOVES",
+  "HELMETS",
+  "LEGS",
+  "MACES",
+  "SHIELDS",
+  "SHOULDERS",
+  "STAVES",
+  "SWORDS",
+];
+
+export type axes = "Battle Axe" | "Axe";
+export type belts = "Belt" | "Sash" | "Girdle";
+export type boots = "Sabatons" | "Shoes" | "Boots";
+export type bows = "Bow";
+export type chests = "Robe" | "Shirt" | "Jack" | "Curaiss";
+export type daggers = "Dagger";
+export type gloves = "Gauntlets" | "Gloves" | "Bracers";
+export type helmets = "Helm" | "Hat" | "Helmet";
+export type legs = "Greaves" | "Breeches" | "Guards";
+export type maces = "Maul" | "Mace";
+export type shields = "Shield";
+export type shoulders = "Arm Cops" | "Pauldron" | "Epaulets";
+export type staves = "Inferno Staff" | "Ice Staff" | "Lightning Staff" | "Restoration Staff";
+
+export type swords = "Sword" | "Greatsword";
