@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
-import { reqDTO } from "../index";
+import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const getAlltraits = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, player_uuid: req.headers.player_uuid.toLocaleString() };
+
+    console.log("reqDTO: ", reqDTO);
     const results = await services.traits.getAllTraits(reqDTO);
     res.json(results);
   } catch (error) {
@@ -14,6 +16,7 @@ const getAlltraits = async (req: Request, res: Response, next: NextFunction) => 
 
 const updateTrait = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log("traits controller request: ", req.body);
     const reqDTO: reqDTO = { ...req.body };
     const results = await services.traits.updateTrait(reqDTO);
     if (results.affectedRows) return res.json({ message: "Trait updated successfully!" });

@@ -6,11 +6,11 @@ import { trueFalseString, writ } from "./models";
  * @param player_uuid player uuid
  * @param writ - the writ the player is adding
  */
-const addWrit = (player_uuid: string, { item, quality, trait, set, style, reward }: writ, is_jewelry: boolean) =>
+const addWrit = (player_uuid: string, { item, quality, trait, set, style, reward }: writ, is_jewelery: boolean) =>
   Query(
     `
-       INSERT INTO player_writs (player_uuid, item, quality, trait, set, style, is_jewelry, reward)
-       VALUES ('${player_uuid}', '${item}', '${quality}', '${trait}', '${set}', '${style}', ${is_jewelry}, ${reward});    
+       INSERT INTO player_writs (player_uuid, item, quality, trait, set, style, is_jewelery, reward)
+       VALUES ('${player_uuid}', '${item}', '${quality}', '${trait}', '${set}', '${style}', ${is_jewelery}, ${reward});    
     `
   );
 /**
@@ -34,7 +34,7 @@ const setCompletion = (player_uuid: string, writ_uuid: string, completion: trueF
 const selectAllWrits = (player_uuid: string) =>
   Query(
     `
-         SELECT * FROM player_writs WHERE player_uuid = '${player_uuid.toString()}'; 
+         SELECT * FROM player_writs WHERE player_uuid = '${player_uuid}'; 
       `
   );
 
@@ -50,7 +50,7 @@ const makeBigWritTable = () =>
       trait TEXT,
       set TEXT,
       style TEXT DEFAULT NULL,
-      is_jewelry BOOLEAN,
+      is_jewelery BOOLEAN,
       reward INTEGER,
       completed BOOLEAN DEFAULT false
     );

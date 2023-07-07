@@ -1,5 +1,5 @@
 import { queries } from "../../../db/schemas/esoapp";
-import { reqDTO } from "../index";
+import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 // const doesWritExist = async (reqDTO: reqDTO) => {
 //   const { player_uuid, writ_uuid } = reqDTO;
@@ -13,6 +13,7 @@ const getAllWrits = async (reqDTO: reqDTO) => {
   const { player_uuid } = reqDTO;
 
   const results = await queries.writs.selectAllWrits(player_uuid);
+  console.log("results: ", results);
   return results;
 };
 
@@ -24,8 +25,8 @@ const updateWrit = async (reqDTO: reqDTO) => {
 };
 
 const newWrit = async (reqDTO: reqDTO) => {
-  const { player_uuid, writ, is_jewelry } = reqDTO;
-  const results = await queries.writs.addWrit(player_uuid, writ, is_jewelry);
+  const { player_uuid, writ, is_jewelery } = reqDTO;
+  const results = await queries.writs.addWrit(player_uuid, writ, is_jewelery);
   if (results.rowCount !== 1) return null;
   return results;
 };

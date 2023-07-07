@@ -47,7 +47,7 @@ SELECT * FROM player_styles WHERE player_uuid = '${player_uuid}';
 const addNewStyle = (newColumns: string[]) =>
   Query(
     `
-    ALTER TABLE player_styles ADD ${newColumns.toString()}
+    ALTER TABLE player_styles ADD ${newColumns}
     `
   );
 
@@ -56,16 +56,16 @@ const makeBigStyleTable = (styledItems: string[]) =>
   CREATE TABLE player_styles
   (
     player_uuid TEXT PRIMARY KEY,
-    ${styledItems.toString()}
+    ${styledItems}
     );
     `);
 
 const fillBigStyleTable = (player_uuid: string, styledItems: string[], falses: string[]) =>
   Query(`
     INSERT INTO player_styles 
-    (player_uuid, ${styledItems.toString()})
+    (player_uuid, ${styledItems})
     VALUES
-    (${player_uuid}, ${falses.toString()});
+    (${player_uuid}, ${falses});
     `);
 
 export default {

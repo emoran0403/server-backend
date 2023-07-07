@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
-import { reqDTO } from "../index";
-import { generateToken } from "../../middlewares/passwords";
+import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -21,7 +20,13 @@ const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
     if (trait_results.affectedRows) {
       const style_results = await services.styles.fillBigStyleTable(reqDTO);
       if (style_results.affectedRows) {
-        return res.status(200).json({ message: "successfully filled traits and styles tables" });
+        const reqDupe = { ...req } as Request;
+        console.log("reqDupe user: ", reqDupe.user);
+        const token = await services.auth.login(reqDupe);
+        console.log("token: ", token);
+
+        if (token) return res.status(200).json({ message: "Successfully logged in", token });
+        return res.status(401).json({ message: "Could not login" });
       }
       return res.status(200).json({ message: "could not fill styles table" });
     }

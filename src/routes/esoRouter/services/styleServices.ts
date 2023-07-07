@@ -1,6 +1,6 @@
 import { queries } from "../../../db/schemas/esoapp";
 import { STYLED_ITEMS, STYLES } from "../../../db/schemas/esoapp/constants";
-import { reqDTO } from "../index";
+import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const updateStyle = async (reqDTO: reqDTO) => {
   const { player_uuid, item, style, completion } = reqDTO;

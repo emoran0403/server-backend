@@ -1,12 +1,12 @@
 import {
   all_apparel_list,
   all_item_list,
-  all_jewelry_list,
+  all_jewelery_list,
   all_weapon_list,
   armor_traits,
   craftables,
   falseString,
-  jewelry_traits,
+  jewelery_traits,
   styled_items,
   styles,
   traits,
@@ -47,7 +47,7 @@ export const ALL_APPAREL_LIST: all_apparel_list[] = [
   "Guards",
   "Arm Cops",
   "Belt",
-  "Curaiss",
+  "Cuirass",
   "Sabatons",
   "Gauntlets",
   "Helm",
@@ -71,7 +71,7 @@ export const ALL_WEAPON_LIST: all_weapon_list[] = [
   "Restoration Staff",
 ];
 
-export const ALL_JEWLERY_LIST: all_jewelry_list[] = ["Necklace", "Ring"];
+export const ALL_JEWLERY_LIST: all_jewelery_list[] = ["Necklace", "Ring"];
 
 export const ALL_CRAFTABLES_LIST: all_item_list[] = [
   "Axe",
@@ -102,7 +102,7 @@ export const ALL_CRAFTABLES_LIST: all_item_list[] = [
   "Guards",
   "Arm Cops",
   "Belt",
-  "Curaiss",
+  "Cuirass",
   "Sabatons",
   "Gauntlets",
   "Helm",
@@ -116,51 +116,21 @@ export const ALL_CRAFTABLES_LIST: all_item_list[] = [
 export const CRAFTABLES: craftables = {
   WEAPON: ALL_WEAPON_LIST,
   ARMOR: ALL_APPAREL_LIST,
-  JEWELRY: ALL_JEWLERY_LIST,
+  JEWELERY: ALL_JEWLERY_LIST,
 };
 
 export const FALSE10: falseString[] = ["false", "false", "false", "false", "false", "false", "false", "false", "false", "false"];
 
-export const WEAPON_TRAITS: weapon_traits[] = [
-  "Powered",
-  "Charged",
-  "Precise",
-  "Infused",
-  "Defending",
-  "Training",
-  "Sharpened",
-  "Decisive",
-  "Nirnhoned",
-];
+export const WEAPON_TRAITS: weapon_traits[] = ["Powered", "Charged", "Precise", "Infused", "Defending", "Training", "Sharpened", "Decisive", "Nirnhoned"];
 
-export const ARMOR_TRAITS: armor_traits[] = [
-  "Sturdy",
-  "Impenetrable",
-  "Reinforced",
-  "Wellfitted",
-  "Training",
-  "Infused",
-  "Invigorating",
-  "Divines",
-  "Nirnhoned",
-];
+export const ARMOR_TRAITS: armor_traits[] = ["Sturdy", "Impenetrable", "Reinforced", "Wellfitted", "Training", "Infused", "Invigorating", "Divines", "Nirnhoned"];
 
-export const JEWELRY_TRAITS: jewelry_traits[] = [
-  "Healthy",
-  "Arcane",
-  "Robust",
-  "Bloodthirsty",
-  "Harmony",
-  "Infused",
-  "Triune",
-  "Protective",
-  "Swift",
-];
+export const JEWELERY_TRAITS: jewelery_traits[] = ["Healthy", "Arcane", "Robust", "Bloodthirsty", "Harmony", "Infused", "Triune", "Protective", "Swift"];
 
 export const TRAITS: traits = {
   WEAPON_TRAITS,
   ARMOR_TRAITS,
-  JEWELRY_TRAITS,
+  JEWELERY_TRAITS,
 };
 
 export const STYLES: styles[] = [

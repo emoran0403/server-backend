@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
-import { reqDTO } from "../index";
+import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const updateStyle = async (req: Request, res: Response, next: NextFunction) => {
   try {

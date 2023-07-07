@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { queries } from "../../../db/schemas/esoapp";
 import { generateHash, generateToken } from "../../middlewares/passwords";
-import { reqDTO } from "../index";
+import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const doesPlayerExist = async (reqDTO: reqDTO) => {
   const { username } = reqDTO;

@@ -3,7 +3,6 @@ import authRouter from "./auth";
 import writRouter from "./writs";
 import stylesRouter from "./styles";
 import traitsRouter from "./traits";
-import { all_item_list, all_trait_list, item_values, styles, tables, trait_values, trueFalseString, writ } from "../../db/schemas/esoapp/models";
 
 export default function (app: Router) {
   const route = Router();
@@ -15,24 +14,6 @@ export default function (app: Router) {
   traitsRouter(route);
 
   return route;
-}
-
-export interface reqDTO {
-  player_uuid?: string;
-  writ_uuid?: string;
-  completion?: trueFalseString;
-  writ?: writ;
-  is_jewelry?: boolean;
-  username?: string;
-  plainTextPassword?: string;
-  style?: styles;
-  itemValues?: item_values[];
-  uuidArray?: number[];
-  table?: tables;
-  item?: all_item_list;
-  traitValues: trait_values[];
-  new_style?: string[];
-  trait?: all_trait_list;
 }
 
 // route.get("/route", async (req, res, next) => {

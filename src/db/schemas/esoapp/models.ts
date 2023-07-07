@@ -1,30 +1,34 @@
-export type styled_items =
-  | "axes"
-  | "belts"
-  | "boots"
-  | "bows"
-  | "chests"
-  | "daggers"
-  | "gloves"
-  | "helmets"
-  | "legs"
-  | "maces"
-  | "shields"
-  | "shoulders"
-  | "staves"
-  | "swords";
+export type styled_items = "axes" | "belts" | "boots" | "bows" | "chests" | "daggers" | "gloves" | "helmets" | "legs" | "maces" | "shields" | "shoulders" | "staves" | "swords";
 
-export type tables = "jewelry" | "weapon" | "armor";
+export type tables = "jewelery" | "weapon" | "armor";
 export interface traits {
   WEAPON_TRAITS: weapon_traits[];
   ARMOR_TRAITS: armor_traits[];
-  JEWELRY_TRAITS: jewelry_traits[];
+  JEWELERY_TRAITS: jewelery_traits[];
 }
 
 export interface craftables {
   WEAPON: all_weapon_list[];
   ARMOR: all_apparel_list[];
-  JEWELRY: all_jewelry_list[];
+  JEWELERY: all_jewelery_list[];
+}
+
+export interface reqDTO {
+  player_uuid?: string;
+  writ_uuid?: string;
+  completion?: trueFalseString;
+  writ?: writ;
+  is_jewelery?: boolean;
+  username?: string;
+  plainTextPassword?: string;
+  style?: styles;
+  itemValues?: item_values[];
+  uuidArray?: number[];
+  table?: tables;
+  item?: all_item_list;
+  traitValues: trait_values[];
+  new_style?: string[];
+  trait?: all_trait_list;
 }
 
 export interface writ {
@@ -36,24 +40,30 @@ export interface writ {
   reward: number;
 }
 
+export interface db_writ extends writ {
+  item: all_item_list;
+  quality: qualities;
+  trait: all_trait_list;
+  set: armor_sets;
+  style?: styles;
+  reward: number;
+
+  writ_uuid: number;
+  player_uuid: string;
+  created_at: string;
+  is_jewelery: boolean;
+  completed: boolean;
+}
+
 export type qualities = "Superior" | "Epic" | "Legendary";
 export type falseString = "false";
 export type trueFalseString = "true" | "false";
 
 export type weapon_traits = "Powered" | "Charged" | "Precise" | "Infused" | "Defending" | "Training" | "Sharpened" | "Decisive" | "Nirnhoned";
-export type armor_traits =
-  | "Sturdy"
-  | "Impenetrable"
-  | "Reinforced"
-  | "Wellfitted"
-  | "Training"
-  | "Infused"
-  | "Invigorating"
-  | "Divines"
-  | "Nirnhoned";
-export type jewelry_traits = "Healthy" | "Arcane" | "Robust" | "Bloodthirsty" | "Harmony" | "Infused" | "Triune" | "Protective" | "Swift";
-export type all_trait_list = weapon_traits | jewelry_traits | jewelry_traits;
-export type all_jewelry_list = "Necklace" | "Ring";
+export type armor_traits = "Sturdy" | "Impenetrable" | "Reinforced" | "Wellfitted" | "Training" | "Infused" | "Invigorating" | "Divines" | "Nirnhoned";
+export type jewelery_traits = "Healthy" | "Arcane" | "Robust" | "Bloodthirsty" | "Harmony" | "Infused" | "Triune" | "Protective" | "Swift";
+export type all_trait_list = weapon_traits | jewelery_traits | jewelery_traits;
+export type all_jewelery_list = "Necklace" | "Ring";
 
 export type all_weapon_list =
   | "Axe"
@@ -86,7 +96,7 @@ export type all_apparel_list =
   | "Guards"
   | "Arm Cops"
   | "Belt"
-  | "Curaiss"
+  | "Cuirass"
   | "Sabatons"
   | "Gauntlets"
   | "Helm"
@@ -94,7 +104,7 @@ export type all_apparel_list =
   | "Pauldron"
   | "Girdle";
 
-export type all_item_list = all_jewelry_list | all_weapon_list | all_apparel_list;
+export type all_item_list = all_jewelery_list | all_weapon_list | all_apparel_list;
 export type all_styled_items = all_weapon_list | all_apparel_list;
 
 export type item_values = [all_styled_items, trueFalseString];

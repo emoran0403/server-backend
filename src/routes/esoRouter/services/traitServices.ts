@@ -1,13 +1,6 @@
 import { queries } from "../../../db/schemas/esoapp";
-import {
-  ALL_APPAREL_LIST,
-  ALL_JEWLERY_LIST,
-  ALL_WEAPON_LIST,
-  ARMOR_TRAITS,
-  JEWELRY_TRAITS,
-  WEAPON_TRAITS,
-} from "../../../db/schemas/esoapp/constants";
-import { reqDTO } from "../index";
+import { ALL_APPAREL_LIST, ALL_JEWLERY_LIST, ALL_WEAPON_LIST, ARMOR_TRAITS, JEWELERY_TRAITS, WEAPON_TRAITS } from "../../../db/schemas/esoapp/constants";
+import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const getAllTraits = async (reqDTO: reqDTO) => {
   const { player_uuid } = reqDTO;
@@ -16,7 +9,10 @@ const getAllTraits = async (reqDTO: reqDTO) => {
 };
 
 const updateTrait = async (reqDTO: reqDTO) => {
+  console.log("From Server...");
+  console.log("reqDTO: ", reqDTO);
   const { player_uuid, item, trait, completion } = reqDTO;
+  console.log({ player_uuid, item, trait, completion });
   const column = `${item.toLocaleLowerCase()}_${trait.replace(/ /g, "_").toLocaleLowerCase()}`;
   const results = await queries.traits.updateAnyTraitTable(player_uuid, column, completion);
   return results;
@@ -45,8 +41,8 @@ const makeBigTraitTable = async () => {
 
   for (let m = 0; m < ALL_JEWLERY_LIST.length; m++) {
     const item = ALL_JEWLERY_LIST[m].replace(/ /g, "_").toLocaleLowerCase();
-    for (let n = 0; n < JEWELRY_TRAITS.length; n++) {
-      const trait = JEWELRY_TRAITS[n].toLocaleLowerCase();
+    for (let n = 0; n < JEWELERY_TRAITS.length; n++) {
+      const trait = JEWELERY_TRAITS[n].toLocaleLowerCase();
 
       traitItems.push(`${item}_${trait} BOOLEAN DEFAULT FALSE`);
     }

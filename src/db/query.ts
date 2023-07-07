@@ -17,7 +17,7 @@ export const Query = <T = QueryResultExtended>(query: string, values: unknown[] 
         if (results.command === "SELECT") {
           resolve(results.rows as unknown as T);
         } else {
-          console.log({ results });
+          // console.log({ results });
           resolve({ ...results, affectedRows: results.rowCount } as unknown as T);
         }
       }
