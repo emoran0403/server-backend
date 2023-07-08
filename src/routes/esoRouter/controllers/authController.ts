@@ -13,7 +13,7 @@ const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
     const insertPlayerResults = await services.auth.insertPlayer(reqDTO);
     reqDTO.player_uuid = insertPlayerResults.rows[0].player_uuid;
 
-    console.log("reqDTO from auth controller", reqDTO);
+    // console.log("reqDTO from auth controller", reqDTO);
 
     //* reqDTO now contains player_uuid
     const trait_results = await services.traits.fillBigTraitTable(reqDTO);
@@ -21,9 +21,9 @@ const newPlayer = async (req: Request, res: Response, next: NextFunction) => {
       const style_results = await services.styles.fillBigStyleTable(reqDTO);
       if (style_results.affectedRows) {
         const reqDupe = { ...req } as Request;
-        console.log("reqDupe user: ", reqDupe.user);
+        // console.log("reqDupe user: ", reqDupe.user);
         const token = await services.auth.login(reqDupe);
-        console.log("token: ", token);
+        // console.log("token: ", token);
 
         if (token) return res.status(200).json({ message: "Successfully logged in", token });
         return res.status(401).json({ message: "Could not login" });
@@ -70,9 +70,9 @@ const checkToken = async (req: Request, res: Response, next: NextFunction) => {
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const reqDupe = { ...req } as Request;
-    console.log("reqDupe user: ", reqDupe.user);
+    // console.log("reqDupe user: ", reqDupe.user);
     const token = await services.auth.login(reqDupe);
-    console.log("token: ", token);
+    // console.log("token: ", token);
 
     if (token) return res.status(200).json({ message: "Successfully logged in", token });
     return res.status(401).json({ message: "Could not login" });

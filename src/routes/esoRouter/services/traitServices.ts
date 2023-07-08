@@ -9,10 +9,10 @@ const getAllTraits = async (reqDTO: reqDTO): Promise<db_list_response[]> => {
 };
 
 const updateTrait = async (reqDTO: reqDTO) => {
-  console.log("From Server...");
-  console.log("reqDTO: ", reqDTO);
+  // console.log("From Server...");
+  // console.log("reqDTO: ", reqDTO);
   const { player_uuid, item, trait, completion } = reqDTO;
-  console.log({ player_uuid, item, trait, completion });
+  // console.log({ player_uuid, item, trait, completion });
   const column = `${item.toLocaleLowerCase()}_${trait.replace(/ /g, "_").toLocaleLowerCase()}`;
   const results = await queries.traits.updateAnyTraitTable(player_uuid, column, completion);
   return results;
@@ -48,7 +48,7 @@ const makeBigTraitTable = async () => {
     }
   }
 
-  console.log("traitItems", traitItems);
+  // console.log("traitItems", traitItems);
 
   const results = await queries.traits.makeBigTraitTable(traitItems);
   return results;
@@ -60,9 +60,20 @@ const fillBigTraitTable = async (reqDTO: reqDTO) => {
   const results = await queries.traits.fillBigTraitTable(player_uuid);
   return results;
 };
+
+const hasTrait = (traitArray: db_list_response[], item: string): boolean => {
+  console.log("item: ", item);
+  return true;
+};
+
+const hasArmorSet = (traitArray: db_list_response[], item: string): boolean => {
+  return true;
+};
 export const traits = {
   makeBigTraitTable,
   fillBigTraitTable,
   getAllTraits,
   updateTrait,
+  hasTrait,
+  hasArmorSet,
 };

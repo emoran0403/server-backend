@@ -82,6 +82,10 @@ const fillBigStyleTable = async (reqDTO: reqDTO) => {
   return results;
 };
 
+const hasStyle = (styleArray: db_list_response[], item: string, style: string, is_jewelery: boolean): boolean => {
+  return true;
+};
+
 export const styles = {
   updateStyle,
   getOneStyle,
@@ -89,4 +93,5 @@ export const styles = {
   addNewStyle,
   makeBigStyleTable,
   fillBigStyleTable,
+  hasStyle,
 };

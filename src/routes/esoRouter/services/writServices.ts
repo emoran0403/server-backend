@@ -13,7 +13,7 @@ const getAllWrits = async (reqDTO: reqDTO): Promise<db_writ[]> => {
   const { player_uuid } = reqDTO;
 
   const results = await queries.writs.selectAllWrits(player_uuid);
-  console.log("results: ", results);
+  // console.log("results: ", results);
   return results;
 };
 

@@ -16,5 +16,5 @@ export default function (app: Router) {
 
   // route.post("/generate", controllers.styles.makeBigStyleTable); // done testing
 
-  // route.post("/fill", controllers.styles.fillBigStyleTable); // done testing
+  route.post("/fill", controllers.styles.fillBigStyleTable); // done testing
 }

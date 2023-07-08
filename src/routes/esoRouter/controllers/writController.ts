@@ -1,15 +1,26 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
-import { isNil } from "lodash";
+import { isNil, isUndefined } from "lodash";
 import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const reqDTO: reqDTO = { ...req.body };
-    // const { player_uuid } = reqDTO;
-    const results = await services.writs.getAllWrits(reqDTO);
-    //   const results = await queries.writs.selectAllWrits("1");
-    // console.log(results);
+
+    const writList = await services.writs.getAllWrits(reqDTO);
+    const traitList = await services.traits.getAllTraits(reqDTO);
+    const styleList = await services.styles.getAllStyles(reqDTO);
+
+    const updatedWrits = writList.map((writ) => {
+      const { item, style, is_jewelery } = writ;
+      const hasValidStyle = !is_jewelery && !(isNil(style) || !isUndefined(style));
+      return {
+        ...writ,
+        hasTrait: services.traits.hasTrait(traitList, item),
+        hasArmorSet: services.traits.hasArmorSet(traitList, item),
+        hasStyle: hasValidStyle ? services.styles.hasStyle(styleList, item, style, is_jewelery) : null,
+      };
+    });
 
     /**
      * !?! This needs to be adjusted to add
@@ -19,9 +30,13 @@ const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
      *
      * constants has the traits required for the armor set
      *
+     *
+     *
      * get all writs
      * get all styles
      * get all traits
+     *
+     * iterate over all writs, and append the following to the writ object properties
      *
      * hasTrait:
      * get the item from the writ
@@ -39,7 +54,8 @@ const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
      *
      */
 
-    res.status(200).json(results);
+    console.log("getAllWrits: ", writList);
+    res.status(200).json(updatedWrits);
   } catch (error) {
     next(error);
   }
