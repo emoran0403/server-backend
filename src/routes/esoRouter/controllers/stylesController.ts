@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
-import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const updateStyle = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, ...req.headers };
     const results = await services.styles.updateStyle(reqDTO);
     if (results) return res.json({ message: `Style updated!` });
     res.status(400).json({ message: `Could not update Style` });
@@ -15,7 +14,7 @@ const updateStyle = async (req: Request, res: Response, next: NextFunction) => {
 
 const getOneStyle = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, ...req.headers };
     const results = await services.styles.getOneStyle(reqDTO);
     res.json(results);
   } catch (error) {
@@ -25,7 +24,7 @@ const getOneStyle = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAllStyles = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, ...req.headers };
     const results = await services.styles.getAllStyles(reqDTO);
     res.json(results);
   } catch (error) {
@@ -35,7 +34,7 @@ const getAllStyles = async (req: Request, res: Response, next: NextFunction) => 
 
 const addNewStyle = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, ...req.headers };
     const results = await services.styles.addNewStyle(reqDTO);
     if (results.affectedRows) return res.json({ message: "New style added successfully!" });
     return res.json({ message: "Something went wrong!" });
@@ -57,7 +56,7 @@ const makeBigStyleTable = async (req: Request, res: Response, next: NextFunction
 
 const fillBigStyleTable = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, ...req.headers };
     const results = await services.styles.fillBigStyleTable(reqDTO);
     console.log("results", results);
     if (results) return res.json({ message: "Successfully filled styles table!" });

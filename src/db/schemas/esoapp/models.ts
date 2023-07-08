@@ -17,7 +17,9 @@ export interface reqDTO {
   player_uuid?: string;
   writ_uuid?: string;
   completion?: trueFalseString;
-  writ?: writ;
+  quality?: qualities;
+  set?: armor_sets;
+  reward?: number;
   is_jewelery?: boolean;
   username?: string;
   plainTextPassword?: string;

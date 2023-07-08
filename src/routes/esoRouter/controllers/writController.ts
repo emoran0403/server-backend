@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { services } from "../services";
 import { isNil, isUndefined } from "lodash";
-import { reqDTO } from "../../../db/schemas/esoapp/models";
 
 const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, ...req.headers };
 
     const writList = await services.writs.getAllWrits(reqDTO);
     const traitList = await services.traits.getAllTraits(reqDTO);
@@ -63,7 +62,7 @@ const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
 
 const updateWrit = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, ...req.headers };
     // const { player_uuid, writ_uuid, completion } = reqDTO;
 
     const results = await services.writs.updateWrit(reqDTO);
@@ -78,7 +77,8 @@ const updateWrit = async (req: Request, res: Response, next: NextFunction) => {
 
 const newWrit = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const reqDTO: reqDTO = { ...req.body };
+    const reqDTO: any = { ...req.body, ...req.headers };
+    console.log("new writ reqDTO", reqDTO);
 
     const results = await services.writs.newWrit(reqDTO);
     if (isNil(results)) return res.status(500).json({ message: "Error saving new Writ" });

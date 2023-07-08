@@ -1,12 +1,21 @@
 import { Query } from "../../query";
-import { db_writ, trueFalseString, writ } from "./models";
+import { all_item_list, all_trait_list, armor_sets, db_writ, qualities, styles, trueFalseString } from "./models";
 
 /**
  * Used to add a writ to the player's writ table
  * @param player_uuid player uuid
  * @param writ - the writ the player is adding
  */
-const addWrit = (player_uuid: string, { item, quality, trait, set, style, reward }: writ, is_jewelery: boolean) =>
+const addWrit = (
+  player_uuid: string,
+  item: all_item_list,
+  quality: qualities,
+  trait: all_trait_list,
+  set: armor_sets,
+  style: styles,
+  reward: number,
+  is_jewelery: boolean
+) =>
   Query(
     `
        INSERT INTO player_writs (player_uuid, item, quality, trait, set, style, is_jewelery, reward)
