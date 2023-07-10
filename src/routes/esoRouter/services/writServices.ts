@@ -26,7 +26,7 @@ const updateWrit = async (reqDTO: reqDTO) => {
 
 const newWrit = async (reqDTO: reqDTO) => {
   const { player_uuid, quality, item, trait, set, style, reward, is_jewelery } = reqDTO;
-  const results = await queries.writs.addWrit(player_uuid, item, quality, trait, set, style, reward, is_jewelery);
+  const results = await queries.writs.addWrit(player_uuid, item, quality, trait, set, reward, is_jewelery, style);
   if (results.rowCount !== 1) return null;
   return results;
 };

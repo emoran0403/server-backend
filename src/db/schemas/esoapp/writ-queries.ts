@@ -12,9 +12,9 @@ const addWrit = (
   quality: qualities,
   trait: all_trait_list,
   set: armor_sets,
-  style: styles,
   reward: number,
-  is_jewelery: boolean
+  is_jewelery: boolean,
+  style?: styles
 ) =>
   Query(
     `
