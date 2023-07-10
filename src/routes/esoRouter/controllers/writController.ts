@@ -10,6 +10,8 @@ const getAllWrits = async (req: Request, res: Response, next: NextFunction) => {
     const traitList = await services.traits.getAllTraits(reqDTO);
     const styleList = await services.styles.getAllStyles(reqDTO);
 
+    console.log("traitList: ", traitList);
+
     const updatedWrits = writList.map((writ) => {
       const { item, style, is_jewelery } = writ;
       const hasValidStyle = !is_jewelery && !(isNil(style) || !isUndefined(style));

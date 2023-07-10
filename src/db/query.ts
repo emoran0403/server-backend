@@ -2,7 +2,7 @@ import config from "../config";
 import * as postgres from "pg";
 import { get } from "../loaders/postgresql";
 
-interface QueryResultExtended extends postgres.QueryResult {
+export interface QueryResultExtended extends postgres.QueryResult {
   length?: number;
   affectedRows?: number;
 }
